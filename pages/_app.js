@@ -18,6 +18,9 @@ export default function App({ Component, pageProps }) {
 
     fetchArt();
   }, []);
+  if (!artPieces || artPieces.length === 0) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>
