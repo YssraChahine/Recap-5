@@ -12,13 +12,18 @@ export default function ArtPice({
   artPieces,
   favorites,
   onToggleFavorite,
+  artComments,
+  handleSubmitComment,
 }) {
   const router = useRouter();
   const { slug } = router.query;
 
   // Find matching art piece
-  const currentArtPice = artPieces.find(
-    (artPice) => artPice.slug === slug
+  const currentArtPice = artPieces.find((artPice) => artPice.slug === slug);
+
+  // find current art comments
+  const currentArtComments = artComments.find(
+    (comments) => comments.slug == slug
   );
 
   if (!currentArtPice) {
@@ -30,6 +35,8 @@ export default function ArtPice({
       currentArtPice={currentArtPice}
       isFavorite={favorites.includes(currentArtPice.slug)}
       onToggleFavorite={onToggleFavorite}
+      artComments={currentArtComments}
+      handleSubmitComment={handleSubmitComment}
     />
   );
 }
