@@ -8,24 +8,7 @@ import ArtPieceList from "../components/ArtPieceList";
  * @returns {JSX.Element} The homepage with a list of art pieces
  */
 
-export default function HomePage() {
-  // State to store all art pieces
-  const [artPieces, setArtPieces] = useState([]);
-
-  /**
-   * Fetches art data from the API
-   */
-
-  useEffect(() => {
-    async function fetchArt() {
-      const response = await fetch("https://example-apis.vercel.app/api/art");
-      const data = await response.json();
-      setArtPieces(data);
-    }
-
-    fetchArt();
-  }, []);
-
+export default function HomePage({ artPieces }) {
   return (
     <div>
       <h1>Art Gallery</h1>

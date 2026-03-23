@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ArtPiecePreview from "./ArtPiecePreview";
 /**
  * ArtPieceList Component
@@ -14,7 +15,9 @@ export default function ArtPieceList({ artPieces }) {
     <ul>
       {artPieces.map((piece) => (
         <li key={piece.slug}>
-          <ArtPiecePreview piece={piece} />
+          <Link href={`/${piece.slug}`}>
+            <ArtPiecePreview piece={piece} />
+          </Link>
         </li>
       ))}
     </ul>
