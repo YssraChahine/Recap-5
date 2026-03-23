@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import ArtPieceList from "../components/ArtPieceList";
 import Spotlight from "@/components/Spotlight/Spotlight";
 /**
  * HomePage Component
@@ -9,14 +7,18 @@ import Spotlight from "@/components/Spotlight/Spotlight";
  * @returns {JSX.Element} The homepage with a list of art pieces
  */
 
-export default function HomePage({ artPieces }) {
+export default function HomePage({ artPieces, favorites, onToggleFavorite }) {
   if (!artPieces || artPieces.length === 0) {
     return <p>Loading...</p>;
   }
   return (
     <main>
       <h1>Spotlight</h1>
-      <Spotlight artPieces={artPieces} />
+      <Spotlight
+        artPieces={artPieces}
+        favorites={favorites}
+        onToggleFavorite={onToggleFavorite}
+      />
     </main>
   );
 }

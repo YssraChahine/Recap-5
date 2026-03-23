@@ -1,16 +1,25 @@
+import { useMemo } from "react";
 import ArtPiecePreview from "../ArtPiecePreview";
 
-export default function Spotlight({ artPieces }) {
+export default function Spotlight({ artPieces, favorites = [], onToggleFavorite }) {
   //select random art piece
-  function getRandomArtPiece(img) {
-    const randomImg = Math.floor(Math.random() * img.length);
-    return img[randomImg];
+   const randomArtPiece = useMemo(() => {
+    if (!artPieces || artPieces.length === 0) return null;
+
+    const randomPiece = Math.floor(Math.random() * artPieces.length);
+    return artPieces[randomPiece];
+  }, [artPieces]);
+  if (!randomArtPiece) {
+    return <p>Loading...</p>;
   }
-  //choose random art piece and pass it to the preview component
-  const randomArtPiece = getRandomArtPiece(artPieces);
+  
   return (
     <section>
-      <ArtPiecePreview piece={randomArtPiece} />
+      <ArtPiecePreview
+        piece={randomArtPiece}
+        isFavorite={favorites.includes(randomArtPiece.slug)}
+        onToggleFavorite={onToggleFavorite}
+      />
     </section>
   );
 }

@@ -7,6 +7,7 @@ const NavBar = styled.nav`
   left: 0;
   width: 100%;
   display: flex;
+  z-index: 10;
 `;
 
 const NavItem = styled(Link)`
