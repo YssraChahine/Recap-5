@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import GlobalStyle from "../styles";
+import Navigation from "@/components/Navigation/Navigation";
 
 /**
  * App Component (Root)
@@ -22,16 +23,16 @@ export default function App({ Component, pageProps }) {
    */
   useEffect(() => {
     async function fetchArt() {
-      const response = await fetch("https://example-apis.vercel.app/api/art");
-      const data = await response.json();
-      setArtPieces(data);
+      try {
+        const response = await fetch("https://example-apis.vercel.app/api/art");
+        const data = await response.json();
+        setArtPieces(data);
+      } catch (error) {
+        console.error("Error fetching art data:", error);
+      }
     }
-
     fetchArt();
   }, []);
-  if (!artPieces || artPieces.length === 0) {
-    return <p>Loading...</p>;
-  }
   /**
    * Toggles the favorite status of an art piece
    *
@@ -54,6 +55,7 @@ export default function App({ Component, pageProps }) {
   }
   return (
     <>
+      <Navigation />
       <GlobalStyle />
       <Component
         {...pageProps}
