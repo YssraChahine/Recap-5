@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import ArtPieceList from "../components/ArtPieceList";
 import Spotlight from "@/components/Spotlight";
 /**
  * HomePage Component

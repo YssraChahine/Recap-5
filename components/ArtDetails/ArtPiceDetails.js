@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
+import ArtComments from "./ArtComments";
 
 /**
  * ArtPiceDetails Component
@@ -39,6 +40,7 @@ export default function ArtPiceDetails({ currentArtPice }) {
       <p>
         {currentArtPice.artist} {currentArtPice.year} {currentArtPice.genre}
       </p>
+      <ArtComments artSlug={currentArtPice.slug} />
     </>
   );
 }
