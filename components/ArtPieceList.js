@@ -7,16 +7,27 @@ import ArtPiecePreview from "./ArtPiecePreview";
  *
  * @param {Object} props
  * @param {Array} props.artPieces - Array of art objects
+ * @param {Array} props.favorites- List of favorite slugs
+ * @param {Function} props.onToggleFavorite - Toggle handler
  * @returns {JSX.Element} A list of art pieces
  */
 
-export default function ArtPieceList({ artPieces }) {
+export default function ArtPieceList({
+  artPieces,
+  favorites,
+  onToggleFavorite,
+}) {
   return (
     <ul>
       {artPieces.map((piece) => (
         <li key={piece.slug}>
           <Link href={`/${piece.slug}`}>
-            <ArtPiecePreview piece={piece} />
+            <ArtPiecePreview
+              piece={piece}
+              // Check if current piece is a favorite
+              isFavorite={favorites.includes(piece.slug)}
+              onToggleFavorite={onToggleFavorite}
+            />
           </Link>
         </li>
       ))}
