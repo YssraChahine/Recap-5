@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import GlobalStyle from "../styles";
 import Navigation from "@/components/Navigation/Navigation";
+import { uid } from "uid";
 
 /**
  * App Component (Root)
@@ -17,6 +18,9 @@ export default function App({ Component, pageProps }) {
 
   // ❤️ Stores favorite art piece identifiers (slugs)
   const [favorites, setFavorites] = useState([]);
+
+  // Stores Comments for art pieces
+  const [artComments, setArtComments] = useState([]);
 
   /**
    * Fetch art data once when the app mounts
@@ -53,6 +57,34 @@ export default function App({ Component, pageProps }) {
       }
     });
   }
+
+  function handleSubmitComment(slug, comment) {
+    const id = uid();
+    const artPieceComments = artComments.find(
+      (comments) => comments.slug === slug
+    );
+
+    if (artPieceComments) {
+      setArtComments(
+        artComments.map((commentList) => {
+          if (commentList.slug === slug) {
+            return {
+              ...commentList,
+              comments: [...commentList.comments, { id, message: comment }],
+            };
+          } else {
+            return commentList;
+          }
+        })
+      );
+    } else {
+      setArtComments([
+        ...artComments,
+        { slug, comments: [{ id, message: comment }] },
+      ]);
+    }
+  }
+
   return (
     <>
       <Navigation />
@@ -61,7 +93,9 @@ export default function App({ Component, pageProps }) {
         {...pageProps}
         artPieces={artPieces}
         favorites={favorites}
+        artComments={artComments}
         onToggleFavorite={handleToggleFavorite}
+        handleSubmitComment={handleSubmitComment}
       />
     </>
   );
