@@ -1,16 +1,30 @@
 import ArtPiecePreview from "./ArtPiecePreview";
 
-export default function Spotlight ({artPieces}) {
-    //select random art piece
-    function getRandomArtPiece (img) {
-        const randomImg = Math.floor(Math.random() * img.length);
-        return img[randomImg]
-    }
-    //choose random art piece and pass it to the preview component
-    const randomArtPiece = getRandomArtPiece(artPieces);
-    return (
-        <section>
-            <ArtPiecePreview piece={randomArtPiece} />
-        </section>
-    );
+/**
+ * Spotlight Component
+ *
+ * Displays a random artwork from the list,
+ * including the favorite functionality.
+ */
+
+export default function Spotlight({ artPieces, favorites, onToggleFavorite }) {
+  /**
+   * Returns a random art piece from the array
+   */
+  function getRandomArtPiece(items) {
+    const randomIndex = Math.floor(Math.random() * items.length);
+    return items[randomIndex];
+  }
+
+  const randomArtPiece = getRandomArtPiece(artPieces);
+
+  return (
+    <section>
+      <ArtPiecePreview
+        piece={randomArtPiece}
+        isFavorite={favorites.includes(randomArtPiece.slug)}
+        onToggleFavorite={onToggleFavorite}
+      />
+    </section>
+  );
 }
