@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import GlobalStyle from "../styles";
+import Navigation from "@/components/Navigation/Navigation";
 
 export default function App({ Component, pageProps }) {
   // State to store all art pieces
@@ -18,12 +19,10 @@ export default function App({ Component, pageProps }) {
 
     fetchArt();
   }, []);
-  if (!artPieces || artPieces.length === 0) {
-    return <p>Loading...</p>;
-  }
 
   return (
     <>
+    <Navigation />
       <GlobalStyle />
       <Component {...pageProps} artPieces={artPieces} />
     </>

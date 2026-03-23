@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ArtPieceList from "../components/ArtPieceList";
-import Spotlight from "@/components/Spotlight";
+import Spotlight from "@/components/Spotlight/Spotlight";
 /**
  * HomePage Component
  *
@@ -10,12 +10,13 @@ import Spotlight from "@/components/Spotlight";
  */
 
 export default function HomePage({ artPieces }) {
+  if (!artPieces || artPieces.length === 0) {
+    return <p>Loading...</p>;
+  }
   return (
-    <div>
-      <h1>Art Gallery</h1>
-      {/* Pass fetched data to list component */}
-      {/* <ArtPieceList artPieces={artPieces} /> */}
+    <main>
+      <h1>Spotlight</h1>
       <Spotlight artPieces={artPieces} />
-    </div>
+    </main>
   );
 }
