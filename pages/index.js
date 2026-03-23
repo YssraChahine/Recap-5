@@ -9,27 +9,7 @@ import Spotlight from "@/components/Spotlight";
  * @returns {JSX.Element} The homepage with a list of art pieces
  */
 
-export default function HomePage() {
-  // State to store all art pieces
-  const [artPieces, setArtPieces] = useState([]);
-
-  /**
-   * Fetches art data from the API
-   */
-
-  useEffect(() => {
-    async function fetchArt() {
-      const response = await fetch("https://example-apis.vercel.app/api/art");
-      const data = await response.json();
-      setArtPieces(data);
-    }
-
-    fetchArt();
-  }, []);
-  if (!artPieces || artPieces.length === 0) {
-    return <p>Loading...</p>;
-  }
-
+export default function HomePage({ artPieces }) {
   return (
     <div>
       <h1>Art Gallery</h1>
