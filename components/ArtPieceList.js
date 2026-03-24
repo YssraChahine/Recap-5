@@ -21,14 +21,11 @@ export default function ArtPieceList({
     <ul>
       {artPieces.map((piece) => (
         <li key={piece.slug}>
-          <Link href={`/${piece.slug}`}>
-            <ArtPiecePreview
-              piece={piece}
-              // Check if current piece is a favorite
-              isFavorite={favorites.includes(piece.slug)}
-              onToggleFavorite={onToggleFavorite}
-            />
-          </Link>
+          <ArtPiecePreview
+            piece={piece}
+            isFavorite={favorites.includes(piece.slug)}
+            onToggleFavorite={onToggleFavorite}
+          />
         </li>
       ))}
     </ul>

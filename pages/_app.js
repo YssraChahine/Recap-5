@@ -47,14 +47,12 @@ export default function App({ Component, pageProps }) {
    * - If not → add it
    */
   function handleToggleFavorite(slug) {
+    console.log("SLUG:", slug); // 👈 hinzufügen
     setFavorites((prevFavorites) => {
-      if (prevFavorites.includes(slug)) {
-        //Remove from favorites
-        return prevFavorites.filter((fav) => fav !== slug);
-      } else {
-        //Add to favorites
-        return [...prevFavorites, slug];
-      }
+      const updated = prevFavorites.includes(slug)
+        ? prevFavorites.filter((fav) => fav !== slug)
+        : [...prevFavorites, slug];
+      return updated;
     });
   }
 

@@ -17,7 +17,6 @@ export default function FavoritesPage({
   const favoriteArtPieces = artPieces.filter((piece) =>
     favorites.includes(piece.slug)
   );
-
   return (
     <div>
       <h1>My Favorites</h1>
