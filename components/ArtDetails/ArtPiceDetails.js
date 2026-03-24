@@ -2,6 +2,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import FavoriteButton from "../FavoriteButton";
 import ArtComments from "./ArtComments";
+import Color from "./Color";
+import styled from "styled-components";
 /**
  * ArtPiceDetails Component
  *
@@ -36,6 +38,12 @@ export default function ArtPiceDetails({
 }) {
   const router = useRouter();
 
+  const ColorPlate = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  `;
+
   return (
     <>
       <button onClick={() => router.back()}>Back to overview</button>
@@ -48,7 +56,11 @@ export default function ArtPiceDetails({
         height={450}
         alt={currentArtPice.title}
       />
-
+      <ColorPlate>
+        {currentArtPice.colors.map((color) => {
+          return <Color key={color} color={color} />;
+        })}
+      </ColorPlate>
       <p>
         {currentArtPice.artist} {currentArtPice.year} {currentArtPice.genre}
       </p>
