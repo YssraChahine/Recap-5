@@ -1,5 +1,5 @@
 import FavoriteButton from "./FavoriteButton";
-
+import Link from "next/link";
 /**
  * ArtPiecePreview Component
  *
@@ -27,7 +27,9 @@ export default function ArtPiecePreview({
 }) {
   return (
     <div>
-      <img src={piece.imageSource} alt={piece.title} width="300" />
+      <Link href={`/${piece.slug}`}>
+        <img src={piece.imageSource} alt={piece.title} width="300" />
+      </Link>
 
       <h2>{piece.title}</h2>
       <p>{piece.artist}</p>

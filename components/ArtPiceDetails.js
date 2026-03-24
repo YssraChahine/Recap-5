@@ -38,13 +38,13 @@ export default function ArtPiceDetails({
     <>
       <button onClick={() => router.back()}>Back to overview</button>
 
-      <h1>{currentArtPice.name}</h1>
+      <h1>{currentArtPice.title}</h1>
 
       <Image
         src={currentArtPice.imageSource}
         width={300}
         height={450}
-        alt={currentArtPice.name}
+        alt={currentArtPice.title}
       />
 
       <p>
