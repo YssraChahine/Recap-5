@@ -4,6 +4,61 @@ import FavoriteButton from "../FavoriteButton";
 import ArtComments from "./ArtComments";
 import Color from "./Color";
 import styled from "styled-components";
+
+
+
+
+const Wrapper = styled.main`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+`;
+
+const Buttons = styled.button`
+  background: none;
+  border: none;
+  color: #b8b6b6;
+  font-size: 0.9rem;
+  align-self: flex-start;
+  &:hover {
+    color: #d7d5d5;
+  }
+`;
+
+const ImageWrapper = styled.div`
+  width: 100%;
+`;
+
+const StyledImage = styled(Image)`
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+`;
+
+const Info = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Text = styled.div``;
+
+const Title = styled.h1`
+  margin: 0;
+  font-size: 1.4rem;
+`;
+
+const Information = styled.p`
+  margin: 4px 0 0;
+  color: #c0bdbd;
+  font-size: 0.9rem;
+`;
+
+const ColorPlate = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
 /**
  * ArtPiceDetails Component
  *
@@ -38,42 +93,43 @@ export default function ArtPiceDetails({
 }) {
   const router = useRouter();
 
-  const ColorPlate = styled.div`
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-  `;
-
   return (
-    <>
-      <button onClick={() => router.back()}>Back to overview</button>
+    <Wrapper>
+      <Buttons onClick={() => router.back()}>Back to overview</Buttons>
 
-      <h1>{currentArtPice.title}</h1>
+      <ImageWrapper>
+        <StyledImage
+          src={currentArtPice.imageSource}
+          width={300}
+          height={450}
+          alt={currentArtPice.title}
+        />
+      </ImageWrapper>
 
-      <Image
-        src={currentArtPice.imageSource}
-        width={300}
-        height={450}
-        alt={currentArtPice.title}
-      />
+      <Info>
+        <Text>
+          <Title>{currentArtPice.title}</Title>
+          <Information>
+            {currentArtPice.artist} {currentArtPice.year} {currentArtPice.genre}
+          </Information>
+        </Text>
+        {/* ❤️ Favorite toggle */}
+        <FavoriteButton
+          isFavorite={isFavorite}
+          onToggle={() => onToggleFavorite(currentArtPice.slug)}
+        />
+      </Info>
       <ColorPlate>
         {currentArtPice.colors.map((color) => {
           return <Color key={color} color={color} />;
         })}
       </ColorPlate>
-      <p>
-        {currentArtPice.artist} {currentArtPice.year} {currentArtPice.genre}
-      </p>
-      {/* ❤️ Favorite toggle */}
-      <FavoriteButton
-        isFavorite={isFavorite}
-        onToggle={() => onToggleFavorite(currentArtPice.slug)}
-      />
+
       <ArtComments
         artSlug={currentArtPice.slug}
         artComments={artComments}
         handleSubmitComment={handleSubmitComment}
       />
-    </>
+    </Wrapper>
   );
 }

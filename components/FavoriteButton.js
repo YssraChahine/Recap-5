@@ -1,3 +1,16 @@
+import styled from "styled-components";
+
+const Button = styled.button`
+  border: none;
+  background: none;
+  font-size: 1.3rem;
+  color: ${({ $active }) => ($active ? "#e63946" : "#bbb")};
+  transition: 0.2s;
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
 /**
  * FavoriteButton Component
  *
@@ -12,7 +25,8 @@
 
 export default function FavoriteButton({ isFavorite, onToggle }) {
   return (
-    <button
+    <Button
+      $active={isFavorite}
       onClick={(e) => {
         // Prevent navigation when used inside a Link
         e.preventDefault();
@@ -21,6 +35,6 @@ export default function FavoriteButton({ isFavorite, onToggle }) {
       aria-label="Toggle Favorite"
     >
       {isFavorite ? "❤️" : "🤍"}
-    </button>
+    </Button>
   );
 }

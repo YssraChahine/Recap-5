@@ -1,25 +1,84 @@
+import styled from "styled-components";
 import { useMemo } from "react";
-import ArtPiecePreview from "../ArtPiecePreview";
+import FavoriteButton from "../FavoriteButton";
+import SectionHeader from "@/components/SectionHeader";
 
-export default function Spotlight({ artPieces, favorites = [], onToggleFavorite }) {
-  //select random art piece
-   const randomArtPiece = useMemo(() => {
-    if (!artPieces || artPieces.length === 0) return null;
 
-    const randomPiece = Math.floor(Math.random() * artPieces.length);
-    return artPieces[randomPiece];
+const Wrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const Hero = styled.div`
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+`;
+
+const Image = styled.img`
+  width: 100%;
+  height: auto;
+  display: block;
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px;
+  background: #000000a9;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+`;
+
+const Text = styled.div`
+  color: white;
+`;
+
+const Title = styled.h2`
+  margin: 0;
+  font-size: 1.3rem;
+`;
+
+const Artist = styled.p`
+  margin-top: 2px;
+  font-size: 0.85rem;
+  opacity: 0.85;
+`;
+
+export default function Spotlight({ artPieces, favorites, onToggleFavorite }) {
+  const randomArtPiece = useMemo(() => {
+    if (!artPieces.length) return null;
+    return artPieces[Math.floor(Math.random() * artPieces.length)];
   }, [artPieces]);
-  if (!randomArtPiece) {
-    return <p>Loading...</p>;
-  }
-  
+
+  if (!randomArtPiece) return null;
+
   return (
-    <section>
-      <ArtPiecePreview
-        piece={randomArtPiece}
-        isFavorite={favorites.includes(randomArtPiece.slug)}
-        onToggleFavorite={onToggleFavorite}
-      />
-    </section>
+    <Wrapper>
+      <SectionHeader label="Discover" title="Spotlight" />
+      <Hero>
+        <Image src={randomArtPiece.imageSource} alt={randomArtPiece.title} />
+
+        <Overlay>
+          <Text>
+            <Title>{randomArtPiece.title}</Title>
+            <Artist>{randomArtPiece.artist}</Artist>
+          </Text>
+
+          <FavoriteButton
+            isFavorite={favorites.includes(randomArtPiece.slug)}
+            onToggle={() => onToggleFavorite(randomArtPiece.slug)}
+          />
+        </Overlay>
+      </Hero>
+    </Wrapper>
   );
 }
