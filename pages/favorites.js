@@ -5,6 +5,20 @@
  */
 
 import ArtPieceList from "@/components/ArtPieceList";
+import styled from "styled-components";
+import SectionHeader from "@/components/SectionHeader";
+
+const Wrapper = styled.main`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const EmptyState = styled.div`
+  text-align: center;
+  margin-top: 40px;
+  color: #777;
+`;
 
 export default function FavoritesPage({
   artPieces,
@@ -18,12 +32,17 @@ export default function FavoritesPage({
     favorites.includes(piece.slug)
   );
   return (
-    <div>
-      <h1>My Favorites</h1>
+    <Wrapper>
+      <SectionHeader label="Your Collection" title="My Favorites" />
 
       {/* 🟡 Empty state */}
       {favoriteArtPieces.length === 0 ? (
-        <p>No favorite art pieces yet.</p>
+        <EmptyState>
+          <p>No favorite art pieces yet.</p>
+          <p style={{ fontSize: "0.9rem" }}>
+            Start adding some artworks you like.
+          </p>
+        </EmptyState>
       ) : (
         <ArtPieceList
           artPieces={favoriteArtPieces}
@@ -31,6 +50,6 @@ export default function FavoritesPage({
           onToggleFavorite={onToggleFavorite}
         />
       )}
-    </div>
+    </Wrapper>
   );
 }

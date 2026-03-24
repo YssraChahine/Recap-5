@@ -1,5 +1,17 @@
 import Link from "next/link";
 import ArtPiecePreview from "./ArtPiecePreview";
+import styled from "styled-components";
+
+const Grid = styled.ul`
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 18px;
+`;
+
+
+
 /**
  * ArtPieceList Component
  *
@@ -18,7 +30,7 @@ export default function ArtPieceList({
   onToggleFavorite,
 }) {
   return (
-    <ul>
+    <Grid>
       {artPieces.map((piece) => (
         <li key={piece.slug}>
           <ArtPiecePreview
@@ -28,6 +40,6 @@ export default function ArtPieceList({
           />
         </li>
       ))}
-    </ul>
+    </Grid>
   );
 }

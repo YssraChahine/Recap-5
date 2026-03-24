@@ -14,7 +14,6 @@ export default function HomePage({ artPieces, favorites, onToggleFavorite }) {
   }
   return (
     <main>
-      <h1>Spotlight</h1>
       <Spotlight
         artPieces={artPieces}
         favorites={favorites}
