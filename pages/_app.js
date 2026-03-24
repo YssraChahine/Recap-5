@@ -17,10 +17,22 @@ export default function App({ Component, pageProps }) {
   const [artPieces, setArtPieces] = useState([]);
 
   // ❤️ Stores favorite art piece identifiers (slugs)
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(() => {
+    if (typeof window !== "undefined") {
+      const savedFavorites = localStorage.getItem("favorites");
+      return savedFavorites ? JSON.parse(savedFavorites) : [];
+    }
+    return [];
+  });
 
   // Stores Comments for art pieces
-  const [artComments, setArtComments] = useState([]);
+  const [artComments, setArtComments] = useState(() => {
+    if (typeof window !== "undefined") {
+      const savedComments = localStorage.getItem("artComments");
+      return savedComments ? JSON.parse(savedComments) : [];
+    }
+    return [];
+  });
 
   /**
    * Fetch art data once when the app mounts
@@ -37,6 +49,18 @@ export default function App({ Component, pageProps }) {
     }
     fetchArt();
   }, []);
+
+  // Speichert Favoriten in localStorage
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
+  // Speichert Kommentare in localStorage
+  useEffect(() => {
+    localStorage.setItem("artComments", JSON.stringify(artComments));
+  }, [artComments]);
+
+  
   /**
    * Toggles the favorite status of an art piece
    *
