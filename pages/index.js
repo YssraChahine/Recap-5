@@ -1,4 +1,5 @@
 import Spotlight from "@/components/Spotlight/Spotlight";
+
 /**
  * HomePage Component
  *
