@@ -26,12 +26,24 @@ export default function CommentForm({ slug, onSubmit }) {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        onSubmit(slug, event.target.comment.value);
+
+        const comment = event.target.comment.value;
+
+        const timestamp = new Date();
+        const formattedDate = timestamp.toLocaleDateString("de-DE");
+        const formattedTime = timestamp.toLocaleTimeString("de-DE");
+
+        onSubmit(slug, {
+          text: comment,
+          date: formattedDate,
+          time: formattedTime,
+        });
+
         event.target.reset();
       }}
     >
       <label htmlFor="comment">Comment</label>
-      <Textarea type="text" id="comment" rows="4" cols="50" />
+      <Textarea name="comment" id="comment" rows="4" cols="50" />
       <Button type="submit">Add Comment</Button>
     </form>
   );
