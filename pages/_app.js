@@ -60,7 +60,6 @@ export default function App({ Component, pageProps }) {
     localStorage.setItem("artComments", JSON.stringify(artComments));
   }, [artComments]);
 
-  
   /**
    * Toggles the favorite status of an art piece
    *
@@ -80,11 +79,19 @@ export default function App({ Component, pageProps }) {
     });
   }
 
-  function handleSubmitComment(slug, comment) {
+  function handleSubmitComment(slug, commentData) {
     const id = uid();
+
     const artPieceComments = artComments.find(
       (comments) => comments.slug === slug
     );
+
+    const newComment = {
+      id,
+      message: commentData.text,
+      date: commentData.date,
+      time: commentData.time,
+    };
 
     if (artPieceComments) {
       setArtComments(
@@ -92,7 +99,7 @@ export default function App({ Component, pageProps }) {
           if (commentList.slug === slug) {
             return {
               ...commentList,
-              comments: [...commentList.comments, { id, message: comment }],
+              comments: [...commentList.comments, newComment],
             };
           } else {
             return commentList;
@@ -100,10 +107,7 @@ export default function App({ Component, pageProps }) {
         })
       );
     } else {
-      setArtComments([
-        ...artComments,
-        { slug, comments: [{ id, message: comment }] },
-      ]);
+      setArtComments([...artComments, { slug, comments: [newComment] }]);
     }
   }
 

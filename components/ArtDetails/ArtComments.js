@@ -17,11 +17,15 @@ export default function ArtComments({
   return (
     <Comment>
       <h2>Comments</h2>
-      {artComments && console.log(artComments.comments)}
-
       {artComments &&
         artComments.comments.map((comment) => (
-          <span key={comment.id}>{`"${comment.message}"`}</span>
+          <div key={comment.id}>
+            <span>{`"${comment.message}"`}</span>
+            <br />
+            <small>
+              {comment.date} um {comment.time}
+            </small>
+          </div>
         ))}
 
       <CommentForm slug={artSlug} onSubmit={handleSubmitComment} />
